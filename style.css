@@ -1,0 +1,289 @@
+
+  body{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTqwbMEM-Ub4UAdY31J122TvwcLm40YmVswzGqfRSMcsahqy2FhIPPw5EASYnw9v8Ph_RM&usqp=CAU");
+    background-repeat: no-repeat;
+    background-size: cover; 
+  }
+  
+#div-hei{
+  height: 100%;
+}
+#h1{
+  color: rgb(255, 255, 255);
+}
+#rupee-buttons{
+  width: 100%; 
+  padding: 20px;
+  color: rgb(0, 0, 0);
+
+
+}
+#btnnumbers{
+  width: 20%;
+  padding: 15px;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+
+}
+/* #btnnumbers:hover{
+  color: white;
+  background-color: ; */
+
+#checkout-btn{
+  margin-left: 1%;
+  font-size: 15px;
+  width: 20%;
+  height: 100%;
+  padding: 13px;
+  background-color: white;
+  color: rgb(5, 1, 1);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
+#checkout-btn:hover{
+  background-color: black;
+  color: white;
+
+}
+.hidden {
+  display: none;
+}
+
+#popup-overlay {
+  text-align: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+}
+
+#poppage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 2;
+  color: rgb(2, 0, 0);
+}
+#clsbtn{
+  width: 50%;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  cursor: pointer;
+
+}
+#clsbtn:hover{
+  background-color: rgb(24, 67, 209);
+  color: white;
+}
+#closebutton{
+  text-align: center;
+  padding: 5px;
+}
+
+#btn1{
+  width: 50%;
+  background-color: black;
+  color: white;
+}
+
+.head{
+  text-align: center;
+  margin-top: 30px;
+
+}
+.add-to-cart:hover{
+  background-color: rgb(131, 189, 55);
+  transition: 2s;
+  color: white;
+}
+
+.cart {
+  text-align: center;
+  border: 1px solid rgb(236, 234, 234);
+  border-radius: 5px;
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+  
+  /* right: 40px; */
+  padding: 10px;
+  box-shadow: 2px 2px 2px rgb(238, 237, 237);
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+  
+}
+
+#total {
+  font-weight: bold;
+}
+
+.balance {
+  margin-top: 30px;
+}
+
+#balance {
+  font-weight: bold;
+}
+
+form {
+  margin-top: 30px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input[type=number] {
+  width: 100px;
+  margin-right: 10px;
+  border-radius: 3px ;
+ 
+}
+
+button[type=submit]:hover{
+  background-color: #89d328;
+  transition: 1s;
+
+
+}
+button[type=submit] {
+  background-color: #db1a1a;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+
+#div1 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  grid-gap: 20px;
+  max-width: 700px;
+}
+
+  
+.div2{
+  width:100%;
+  height: 100%;
+  box-shadow: 2px 3px 3px rgb(228, 226, 226);
+  text-align: center;
+  margin-left: 10px;
+  border-radius: 5px;
+  background-color: rgb(241, 241, 241);
+  font-family: "Times New Roman", Times, serif;
+}
+.btn{
+  width: 100%;
+  padding: 10px;
+  background-color: rgb(224, 28, 38);
+  border-radius: 5px;
+  border: 1px solid rgb(60, 204, 103);
+  transition: 1s;
+  color: white;
+  cursor: pointer;
+}
+.btn:hover{
+  background-color: #4CAF50;
+}
+
+@media screen and (min-width:320px) and (max-width:576px){
+  body{
+    width: 90%;
+  }
+  /* .vending-machine{
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+
+  } */
+  #div1{
+    /* justify-content: center; */
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 15%;
+  }
+  
+  .cart{
+    margin-left: 5%;
+    justify-content: center;
+    
+  }
+  #rupee-buttons{
+    width: 110%;
+
+  
+  }
+  #btnnumbers{
+    width:max-content;
+
+  }
+
+  #checkout-btn{
+    width: 100%;
+    margin-left: 5%;
+  }
+  #poppage{
+    width: 90%;
+    height: 70%;
+  }
+}
+@media screen and (min-width:577px)and (max-width:767px){
+  body{
+    width: 100%;
+    height: auto;
+  }
+  
+  .cart{
+    margin-top: 10%;
+    margin-left: 2%;
+  }
+  #checkout-btn{
+    margin-left: 2%;
+  }
+  #poppage{
+    width: 70%;
+    height: 60%;
+  }
+}
+@media screen and (min-width:768px) and (max-width:991px){
+  body{
+    width: 100%;
+    height: auto;
+  }
+    #div1{
+      width: 100%;
+    }
+  .cart{
+    width: 100%;
+  }
+  #rupee-buttons{
+    width: 100%;
+  }
+  #checkout-btn{
+    margin-top: 2%;
+  }
+  #poppage{
+    width: 90%;
+    height: 70%;
+  }
+  
+}

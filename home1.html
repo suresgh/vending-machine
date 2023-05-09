@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+
+<body>
+  <div class="container" >
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <div class="text-center">
+          <h1 id="h1" >Purchase Items</h1>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-md-8" id="div-hei">
+        <div id="div1">
+    
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="cart">
+          <h2>Total Price</h2>
+          <p><span id="total">0.00</span></p>
+          <div class="balance">
+            <h3>Take Balance</h3>
+            <p><span id="balance">0.00</span></p>
+          </div>
+          <div class="col-md-12" id="rup">
+            <div id="rupee-buttons">
+              <label> Coins: </label>
+              <button id="btnnumbers" type="button" data-value="20" class="btn btn-secondary">20</button>
+              <button id="btnnumbers" type="button" data-value="50" class="btn btn-secondary">50</button>
+              <button id="btnnumbers" type="button" data-value="100" class="btn btn-secondary">100</button>
+            </div>
+          </div>
+        </div>
+      </div>
+     
+      <div id="chk" class="mt-3">
+        <button id="checkout-btn" class="btn btn-primary">Check Out</button>
+      </div>
+  </div>
+    <div class="row mt-5">
+      <div class="col-md-12">
+        <div id="popup-overlay" class="hidden">
+          <div id="poppage">
+            <h2 style="color: #89d328;">Thank you for your purchase!</h2>
+            <p id="popup"></p>
+            <div id="closebutton">
+              <button id="clsbtn" onclick="closepage()" class="btn btn-secondary">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+</body>
+
+
+<script>
+const totalDisplay = document.querySelector('#total');
+const balanceDisplay = document.querySelector('#balance');
+const buttons = document.querySelectorAll('#rupee-buttons button');
+const checkoutBtn=document.getElementById('checkout-btn');
+const popupOverlay = document.getElementById('popup-overlay');
+
+
+let total  =0;
+let balance = 0;
+
+fetch("http://localhost:8081/product")
+  .then((response) => response.json())
+  .then((data) => {
+    const fulldiv = document.getElementById("div1");
+    data.forEach((product) => {
+      const div2 = document.createElement("div");
+      const itemimg = document.createElement("img");
+      itemimg.src = product.image;
+      itemimg.style.width = "100%";
+      itemimg.style.height = "55%";
+      div2.appendChild(itemimg);
+      div2.className="div2";
+
+      const itemname = document.createElement("h3");
+      itemname.textContent = product.name;
+      div2.appendChild(itemname);
+      itemname.className = "name";
+
+      const itemprice = document.createElement("p");
+      itemprice.textContent = `Price: ${product.price}`;
+      div2.appendChild(itemprice);
+      itemprice.className = "pri";
+
+      const itemquantity = document.createElement("p");
+      itemquantity.textContent = `Quantity: ${product.quantity}`;
+      div2.appendChild(itemquantity);
+      itemquantity.className = "qty";
+
+      const buyBtn = document.createElement("button");
+      buyBtn.textContent = "Buy";
+      div2.appendChild(buyBtn);
+      buyBtn.className="btn"
+
+      buyBtn.addEventListener('click', () => {
+        const price = parseFloat(product.price);
+        
+        if (balance >= price) {
+          
+     
+          // alert(`You bought ${product.name} ${product.price}`);
+          
+          total += price;
+          totalDisplay.textContent = `Total: Rs. ${total}`;
+        
+          balance -= price;
+          balanceDisplay.textContent = `Balance: Rs. ${balance}`;
+
+          product.quantity -= 1;
+          itemquantity.textContent = `Quantity: ${product.quantity}`;
+          if(product.quantity===0){
+            buyBtn.style.display="none"
+          }
+          
+          var productdata={
+            name:product.name,
+            image:product.image,
+            price:product.price};
+          
+          
+          
+          if (!checkarray.includes(productdata)){
+          checkarray.push(productdata)
+          
+          }
+        } else {
+          alert(`You do not have enough balance to buy ${product.name}`);
+        }
+      });
+
+      fulldiv.appendChild(div2);
+    });
+  })
+  .catch((error) => {
+    console.log('Error fetching data', error);
+  });
+
+
+
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    balance += parseInt(button.dataset.value); 
+    balanceDisplay.textContent = balance; 
+  });
+});
+
+let checkarray=[];
+
+
+checkoutBtn.addEventListener('click',()=>{
+popupOverlay.classList.remove('hidden')
+
+const popup=document.getElementById('popup');
+
+
+let totalPrice=0;
+
+const productCounts = {}; 
+
+checkarray.forEach((productdata) => {
+  if (!productCounts[productdata.name]) {
+    productCounts[productdata.name] = 1;
+  } else {
+    productCounts[productdata.name]++;
+  }
+});
+
+for (const productName in productCounts) {
+  const productCount = productCounts[productName];
+  const productdata = checkarray.find((product) => product.name === productName);
+
+  const imge = document.createElement('img');
+  imge.src = productdata.image;
+  popup.appendChild(imge);
+  imge.style.width = '10%';
+  imge.style.height = '10%';
+
+  const para = document.createElement('p');
+  para.textContent = `Product Name: ${productName}`;
+  popup.appendChild(para);
+
+  const para1 = document.createElement('p');
+  para1.textContent = `Product Qty: ${productCount}`;
+  popup.appendChild(para1);
+
+  const productTotalPrice = productdata.price * productCount;
+  totalPrice += productTotalPrice;
+}
+
+const productTotalPricePara = document.createElement('p');
+productTotalPricePara.textContent = "Total :"+totalPrice;
+popup.appendChild(productTotalPricePara);
+
+const closebtn = document.createElement('button');
+})
+
+ function closepage(){
+  window.location.href="index.html";
+ }
+
+</script>
+
+
+</html>
